@@ -5,6 +5,7 @@ import CardList from "../components/CardList";
 import SearchBox from "../components/SearchBox";
 import Scroll from "../components/Scroll";
 import './App.css';
+import ErrorBoundry from "../components/ErrorBoundry";
 
 // We define props in the parent file
 // Example: Card props are defined in CardList
@@ -81,7 +82,9 @@ class App extends Component {
 					<h1 className="f1">RoboFriends</h1>
 					<SearchBox searchChange={this.onSearchChange} />
 					<Scroll>
-						<CardList robots={filteredRobots} />
+						<ErrorBoundry>
+							<CardList robots={filteredRobots} />
+						</ErrorBoundry>
 					</Scroll>
 				</div>
 			);
