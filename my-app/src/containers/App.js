@@ -37,7 +37,7 @@ class App extends Component {
 			robots: [],
 			searchfield: "",
 		};
-		console.log("1", "Constructor");
+		console.log("1", "Intialize your state");
 	}
 
 	// Whenever we have a component (class component specifically)
@@ -47,7 +47,7 @@ class App extends Component {
 	// Mounting means the first time a component is rendered on the page
 	// the moment its placed on the DOM
 	componentDidMount() {
-		console.log("3", "componentDidMount");
+		console.log("3", "API calls that update your state");
 		fetch("https://jsonplaceholder.typicode.com/users")
 			.then((response) => {
 				// return parsed JSON promise
@@ -87,7 +87,7 @@ class App extends Component {
 	//.........................................................//
 
 	render() {
-		console.log("2", "render");
+		console.log("2", "Render your initial component UI");
 		const { robots, searchfield } = this.state;
 		const filteredRobots = robots.filter((robot) => {
 			return robot.name.toLowerCase().includes(searchfield.toLowerCase());
