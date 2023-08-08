@@ -4,7 +4,7 @@ import CardList from "../components/CardList";
 // We export variables like this:
 import SearchBox from "../components/SearchBox";
 import Scroll from "../components/Scroll";
-import './App.css';
+import "./App.css";
 import ErrorBoundry from "../components/ErrorBoundry";
 
 // We define props in the parent file
@@ -39,6 +39,12 @@ class App extends Component {
 		};
 	}
 
+	// Whenever we have a component (class component specifically)
+	// that needs to leverage some API call to grab data from the internet
+	// in order to display the correct UI
+	// WE USE THE (componentDidMount()) LIFECYCLE METHOD!!!
+	// Mounting means the first time a component is rendered on the page
+	// the moment its placed on the DOM
 	componentDidMount() {
 		fetch("https://jsonplaceholder.typicode.com/users")
 			.then((response) => {
@@ -46,7 +52,14 @@ class App extends Component {
 				return response.json();
 			})
 			.then((users) => {
-				this.setState({ robots: users });
+				this.setState(
+					() => {
+						return { robots: users };
+					},
+					() => {
+						console.log(this.state.robots);
+					}
+				);
 			});
 	}
 
@@ -57,8 +70,12 @@ class App extends Component {
 	// Changes the state of "searchfiled" to the value we write
 	//.........................................................//
 	onSearchChange = (event) => {
-		this.setState({ searchfield: event.target.value });
-		console.log(event.target.value);
+		this.setState(
+			() => {},
+			() => {
+				console.log(event.target.value);
+			}
+		);
 	};
 
 	// (APP) COMPONENT COMMUNICATES WITH (CARDLIST) COMPONENT //
@@ -70,25 +87,23 @@ class App extends Component {
 	render() {
 		const { robots, searchfield } = this.state;
 		const filteredRobots = robots.filter((robot) => {
-			return robot.name
-				.toLowerCase()
-				.includes(searchfield.toLowerCase());
+			return robot.name.toLowerCase().includes(searchfield.toLowerCase());
 		});
 
-		return !robots.length? 
-			<h1>Loading</h1>:
-			 (
-				<div className="tc">
-					<h1 className="f1">RoboFriends</h1>
-					<SearchBox searchChange={this.onSearchChange} />
-					<Scroll>
-						<ErrorBoundry>
-							<CardList robots={filteredRobots} />
-						</ErrorBoundry>
-					</Scroll>
-				</div>
-			);
-		}
+		return !robots.length ? (
+			<h1>Loading</h1>
+		) : (
+			<div className="tc">
+				<h1 className="f1">RoboFriends</h1>
+				<SearchBox searchChange={this.onSearchChange} />
+				<Scroll>
+					<ErrorBoundry>
+						<CardList robots={filteredRobots} />
+					</ErrorBoundry>
+				</Scroll>
+			</div>
+		);
 	}
+}
 
 export default App;
