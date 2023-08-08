@@ -47,7 +47,7 @@ class App extends Component {
 	// Mounting means the first time a component is rendered on the page
 	// the moment its placed on the DOM
 	componentDidMount() {
-		console.log("3", "API calls that update your state");
+		console.log("3", "API calls that update your state, THEN RE-RENDER UI!!!");
 		fetch("https://jsonplaceholder.typicode.com/users")
 			.then((response) => {
 				// return parsed JSON promise
