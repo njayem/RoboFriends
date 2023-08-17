@@ -152,7 +152,10 @@ function App() {
 				}}>
 				Click Me!
 			</button>
-			<SearchBox searchChange={onSearchChange} />
+			<SearchBox
+				searchChange={onSearchChange}
+				placeholder={"search robots..."}
+			/>
 			<Scroll>
 				<ErrorBoundry>
 					<CardList robots={filteredRobots} />
