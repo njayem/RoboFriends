@@ -1,11 +1,11 @@
 // IMPORT ALL THE CHILDREN
 import React, { useState, useEffect } from "react";
-import CardList from "../components/CardList";
+import CardList from "../components/CardList/CardList.component";
 // We export variables like this:
-import SearchBox from "../components/SearchBox";
-import Scroll from "../components/Scroll";
+import SearchBox from "../components/SearchBox/SearchBox.component";
+import Scroll from "../components/Scroll/Scroll.component";
 import "./App.css";
-import ErrorBoundry from "../components/ErrorBoundry";
+import ErrorBoundry from "../components/ErrorBoundry/ErrorBoundry.component";
 
 // We define props in the parent file
 // Example: Card props are defined in CardList
@@ -87,6 +87,18 @@ function App() {
 	// componentDidMount() {
 	// API calls that update your state
 	// THEN RE-RENDER UI!!!
+
+	// --------------------- //
+	// COMPONENTS RENDER ONCE WHEN:
+	// 1. The component is mounted (initialised in the DOM)
+	// --------------------- //
+
+	// --------------------- //
+	// COMPONENTS RE-RENDER WHEN:
+	// 1. The state changes gets called
+	// 2. The props of the component get updated
+	// --------------------- //
+
 	// 	console.log("3", "componentDidMount()");
 	// 	fetch("https://jsonplaceholder.typicode.com/users")
 	// 		.then((response) => {
