@@ -49,6 +49,12 @@ function App() {
 	const [robots, setRobots] = useState([]);
 	const [searchfield, setSearchfield] = useState("");
 	const [count, setCount] = useState(0);
+
+	// In order to tell the app to filter through the robots
+	// ONLY when the searchfield or the robots array change
+	// We have to create a (state) and a (side-effect)
+	const [filteredRobots, setFilteredRobots] = useState([robots]);
+
 	//.........................................................//
 	// REACT HOOKS //
 	//.........................................................//
@@ -64,6 +70,12 @@ function App() {
 	// function runs
 	// We can pass in an empty array to useEffect() to make it run
 	// only once
+	// Fetch calls are side effects
+	// meaning they rely on something outside the scope of our component
+	// useEffect() takes 2 arguments
+	// 1. The call-back function we want to run
+	// 2. The second argument is an array of dependencies
+	//    (state values OR prop values)
 	useEffect(() => {
 		fetch("https://jsonplaceholder.typicode.com/users")
 			.then((response) => {
@@ -74,6 +86,15 @@ function App() {
 			});
 		console.log(count);
 	}, [count]); // only run if count changes (we fetch each time we click!)
+
+	useEffect(() => {
+		setFilteredRobots(
+			robots.filter((robot) => {
+				return robot.name.toLowerCase().includes(searchfield.toLowerCase());
+			})
+		);
+	}, [robots, searchfield]); // only run if robots or searchfield changes
+
 	//.........................................................//
 	// LIFE CYCLE METHODS USING HOOKS //
 	//.........................................................//
@@ -95,7 +116,7 @@ function App() {
 
 	// --------------------- //
 	// COMPONENTS RE-RENDER WHEN:
-	// 1. The state changes gets called
+	// 1. The state of the component changes (useEffect()'s 1st argument changes)
 	// 2. The props of the component get updated
 	// --------------------- //
 
@@ -136,10 +157,6 @@ function App() {
 
 	// Render your initial component UI
 	// console.log("2", "render()");
-
-	const filteredRobots = robots.filter((robot) => {
-		return robot.name.toLowerCase().includes(searchfield.toLowerCase());
-	});
 
 	return !robots.length ? (
 		<h1>Loading</h1>
