@@ -163,12 +163,12 @@ function App() {
 	) : (
 		<div className="tc">
 			<h1 className="f1">RoboFriends</h1>
-			<button
+			{/* <button
 				onClick={() => {
 					setCount(count + 1);
 				}}>
 				Click Me!
-			</button>
+			</button> */}
 			<SearchBox
 				searchChange={onSearchChange}
 				placeholder={"search robots..."}
