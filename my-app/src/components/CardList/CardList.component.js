@@ -1,5 +1,5 @@
 import React from "react";
-import Card from ".Card/Card.component";
+import Card from "./Card/Card.component";
 
 // When looping through an array in the DOM we have to add a key prop
 // so it knows which card to remove from the DOM
